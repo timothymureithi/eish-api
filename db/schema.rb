@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_16_160305) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_16_180019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.string "client_type"
+    t.integer "serial_no"
+    t.date "appointment_date"
+    t.time "appointment_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "first_name"
@@ -26,6 +35,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_160305) do
     t.string "county"
     t.string "town"
     t.integer "national_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "followups", force: :cascade do |t|
+    t.bigint "visitor_id"
+    t.text "symptoms"
+    t.string "diagnosis"
+    t.text "advice"
+    t.date "checkup_date"
+    t.date "next_visit"
+    t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
