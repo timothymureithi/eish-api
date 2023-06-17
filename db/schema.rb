@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_16_180019) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_17_073909) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "password_digest"
+    t.integer "phone"
+    t.string "designation"
+    t.string "role_s"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "appointments", force: :cascade do |t|
     t.string "client_type"
@@ -21,6 +33,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_180019) do
     t.time "appointment_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "receptionist_id", null: false
+    t.index ["receptionist_id"], name: "index_appointments_on_receptionist_id"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -75,4 +89,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_16_180019) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "appointments", "receptionists"
 end
